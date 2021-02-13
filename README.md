@@ -1,4 +1,3 @@
-# tutorials
 Code for the tutorials I post on [my Medium account](https://medium.com/@uxioandrade)
 
 ## Go:
