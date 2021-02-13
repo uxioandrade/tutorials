@@ -1,0 +1,10 @@
+FROM golang:latest
+
+ENV GO111MODULE=on
+WORKDIR /app
+COPY ./go.mod .
+COPY ./go.sum .
+RUN go mod download
+COPY . .
+RUN env GIT_TERMINAL_PROMPT=1 go get github.com/uxioandrade/go-sql-tutorial
+CMD ["go","run","main.go"]

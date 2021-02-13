@@ -1,0 +1,33 @@
+version: '3'
+services:
+  api:
+    restart: on-failure
+    build:
+        dockerfile: Dockerfile.dev
+        context: './'
+    environment:
+      - USERNAME=postgres
+      - PASSWORD=password
+      - HOST=db
+      - SCHEMA=todos_db
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+    depends_on:
+        - db
+    volumes:
+      - ./:/app
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DATABASE=todos_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    expose:
+      - '5432'
